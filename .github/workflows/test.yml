@@ -1,0 +1,16 @@
+on: [push]
+
+name: Test in CI
+
+jobs:
+  build_and_test:
+    name: Homeworks – Rust
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+      - uses: actions-rs/cargo@v1
+        with:
+          command: clippy

@@ -1,6 +1,6 @@
+use crate::utils;
 use std::collections::HashMap;
 use std::io::BufRead;
-use crate::utils;
 
 #[repr(i32)]
 #[derive(Hash, Copy, Clone, Debug)]
@@ -17,7 +17,6 @@ enum OptionValues {
     Paper = 2,
     Scissors = 3,
 }
-
 
 pub fn calculate_score() {
     let mapping_letter_enum_value = HashMap::from([
@@ -55,11 +54,13 @@ fn calculate_round_result(enemy_choice: &OptionValues, my_choice: &OptionValues)
     ]);
 
     if enemy_choice == my_choice {
-        return GameResultValues::Draw;
+        GameResultValues::Draw
     } else {
         match mapping_choices_to_result.get(&(enemy_choice.clone(), my_choice.clone())) {
-            Some(&value) => { return value; }
-            _ => { panic!(); }
+            Some(&value) => value,
+            _ => {
+                panic!();
+            }
         }
     }
 }

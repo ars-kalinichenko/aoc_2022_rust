@@ -1,5 +1,5 @@
-use std::io::BufRead;
 use crate::utils;
+use std::io::BufRead;
 
 pub fn count_top_three() {
     let file_reader = utils::read_from_file("resources/1.txt");
@@ -9,9 +9,7 @@ pub fn count_top_three() {
     for line in file_reader.lines() {
         let parsed_line = line.unwrap().parse::<i32>();
         match parsed_line {
-            Ok(val) => {
-                count_stars += val
-            }
+            Ok(val) => count_stars += val,
             Err(..) => {
                 compare_with_current_maxes(&mut three_max_stars, count_stars);
                 count_stars = 0;

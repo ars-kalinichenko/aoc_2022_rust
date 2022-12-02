@@ -1,6 +1,6 @@
+use crate::utils;
 use std::collections::HashMap;
 use std::io::BufRead;
-use crate::utils;
 
 #[repr(i32)]
 #[derive(Hash, Copy, Clone, Debug, Eq, PartialEq)]
@@ -11,13 +11,12 @@ enum GameResultValues {
 }
 
 #[repr(i32)]
-#[derive(Hash, Clone, Eq, PartialEq, Copy)]
+#[derive(Hash, Copy, Clone, Eq, PartialEq)]
 enum OptionValues {
     Rock = 1,
     Paper = 2,
     Scissors = 3,
 }
-
 
 pub fn calculate_score() {
     let mapping_letter_to_option = HashMap::from([
@@ -41,7 +40,7 @@ pub fn calculate_score() {
         let result = mapping_letter_to_result.get(split_line.next().unwrap()).unwrap();
 
         let my_option = calculate_option_by_result(enemy_choice, result);
-        score += my_option as i32 + result.clone() as i32;
+        score += my_option as i32 + *result as i32;
     }
     println!("{:?}", score);
 }
@@ -57,11 +56,13 @@ fn calculate_option_by_result(enemy_choice: &OptionValues, result: &GameResultVa
     ]);
 
     if result == &GameResultValues::Draw {
-        return enemy_choice.clone();
+        *enemy_choice
     } else {
-        match mapping_result_to_choice.get(&(enemy_choice.clone(), result.clone())) {
-            Some(&value) => { return value; }
-            _ => { panic!(); }
+        match mapping_result_to_choice.get(&(*enemy_choice, *result)) {
+            Some(&value) => value,
+            _ => {
+                panic!()
+            }
         }
     }
 }

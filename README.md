@@ -8,7 +8,5 @@
 - rustc version: 1.59.0
 
 ### Tasks
-- [ ] Add tests
-- [ ] Add CI (lint, testing)
 - [ ] Finish this competition
 - [ ] Congrats! 🎉
